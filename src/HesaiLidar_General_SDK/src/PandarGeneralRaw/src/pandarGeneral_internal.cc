@@ -1827,6 +1827,11 @@ void PandarGeneral_Internal::CalcXTPointXYZIT(HS_LIDAR_XT_Packet *pkt, int block
       point.z = static_cast<float>(unit.distance * m_sin_elevation_map_[i]);
     }
     transformPoint(point.x, point.y, point.z);  
+    //雷达逆时针旋转90°，进行坐标转换 20230522
+    double temp_x;
+    temp_x = point.x;
+    point.x =  -point.y;
+    point.y = temp_x;
     point.intensity = unit.intensity;
 
     if ("realtime" == m_sTimestampType) {
